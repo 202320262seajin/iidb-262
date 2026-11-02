@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>matchdayweb</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav container" aria-label="주요 메뉴">
+        <a class="nav__logo" href="#" aria-label="s홈">
+          <svg width="28" height="28" viewBox="0 0 26 26" aria-hidden="true">
+            <path d="M3 2 L24 13 L3 24 Z" fill="#1f2bff" />
+          </svg>
+        </a>
+        <ul class="nav__menu">
+          <li><a class="is-active" href="#" aria-current="page">홈</a></li>
+          <li><a href="#">실시간 라이브</a></li>
+          <li><a href="#">일정표</a></li>
+          <li><a href="#">언어</a></li>
+        </ul>
+        <div class="nav__actions">
+          <a class="btn btn--primary" href="#">구독하기</a>
+          <button class="menu-btn" type="button" aria-label="메뉴 열기">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M3 6h16M3 11h16M3 16h16" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="player" aria-labelledby="player-title">
+        <div class="player__photos">
+          <img
+            class="player-cutout"
+            src="images/playerphoto1.png"
+            alt="선수 이미지"
+            decoding="async"
+          />
+
+          <img
+            class="player-cutout"
+            src="images/playerphoto2.png"
+            alt="선수 이미지"
+            decoding="async"
+          />
+        </div>
+        <div class="epl__league">
+          <img src="images/pllogo.png" alt="Premier League" decoding="async" />
+        </div>
+
+        <div class="matchtxt__content">
+          <p class="matchtxt__head">The London Derby</p>
+          <h1 class="matchtxt__title" id="match-title">MATCH<br />DAY</h1>
+          <p class="matchtxt__teams">
+            <span>TOTTENHAM</span> <span class="matchtxt__vs">vs</span>
+            <span>CHELSEA</span>
+          </p>
+          <p class="matchtxt__date">2026. 10. 25(일) 01:30</p>
+          <p class="matchtxt__venue">STAMFORD BRIDGE</p>
+          <a class="btn btn--glass matchtxt__cta" href="#">생중계 바로가기</a>
+        </div>
+      </section>
+
+      <!-- 라인업 + 키포인트 -->
+      <section class="info" aria-label="경기 정보">
+        <article class="lineup lineup--home">
+          <div class="lineup__head">
+            <span>LINE-UP</span><span>4-2-3-1</span>
+          </div>
+          <h2 class="lineup__team">CHELSEA</h2>
+          <div class="lineup__pitch">
+            <!-- 데스크탑: timelinup1 / 태블릿·모바일(768px 이하): timelinup3 -->
+            <picture>
+              <source
+                media="(max-width: 768px)"
+                srcset="images/teamlineup3.png"
+              />
+              <img src="images/teamlineup1.png" alt="" />
+            </picture>
+          </div>
+        </article>
+
+        <article class="lineup lineup--away">
+          <div class="lineup__head">
+            <span>LINE-UP</span><span>4-2-3-1</span>
+          </div>
+          <h2 class="lineup__team">TOTTENHAM</h2>
+          <div class="lineup__pitch">
+            <!-- 데스크탑: timelinup2 / 태블릿·모바일(768px 이하): timelinup4 -->
+            <picture>
+              <source
+                media="(max-width: 768px)"
+                srcset="images/teamlineup4.png"
+              />
+              <img src="images/teamlineup2.png" alt="" />
+            </picture>
+          </div>
+        </article>
+
+        <aside class="key" aria-label="키포인트">
+          <h2 class="section-label">KEY POINT</h2>
+          <div class="key__item">
+            <span class="key__num">01</span
+            ><span class="key__text">치열한 런던 더비</span
+            ><button class="key__more" type="button" aria-expanded="false">
+              더보기
+            </button>
+          </div>
+          <div class="key__item">
+            <span class="key__num">02</span
+            ><span class="key__text">알론소와 데제르비의 전술 싸움</span
+            ><button class="key__more" type="button" aria-expanded="false">
+              더보기
+            </button>
+          </div>
+          <div class="key__item">
+            <span class="key__num">03</span
+            ><span class="key__text">토트넘은 부진에서 빠져나올 수 있을까</span
+            ><button class="key__more" type="button" aria-expanded="false">
+              더보기
+            </button>
+          </div>
+        </aside>
+      </section>
+
+      <!-- 오늘의 경기 -->
+      <section class="today" aria-labelledby="today-title">
+        <div class="today__intro">
+          <h2 class="today__title" id="today-title">TODAY’S<br />MATCH</h2>
+          <p class="today__desc">오늘의 경기를<br />바로 시청하세요</p>
+        </div>
+
+        <article class="match">
+          <p class="match__date">2026. 10. 25(일) 03:00</p>
+          <p class="match__teams">
+            <span>REAL MADRID</span> <span class="match__vs">VS</span>
+            <span>MAN-CITY</span>
+          </p>
+          <a class="btn btn--glass" href="#">시청하기</a>
+        </article>
+
+        <article class="match">
+          <p class="match__date">2026. 10. 25(일) 03:30</p>
+          <p class="match__teams">
+            <span>LIVERPOOL</span> <span class="match__vs">VS</span>
+            <span>FULHAM</span>
+          </p>
+          <a class="btn btn--glass" href="#">시청하기</a>
+        </article>
+
+        <article class="match">
+          <p class="match__date">2026. 10. 25(일) 04:00</p>
+          <p class="match__teams">
+            <span>ROMA</span> <span class="match__vs">VS</span>
+            <span>CAGLIARI</span>
+          </p>
+          <a class="btn btn--glass" href="#">시청하기</a>
+        </article>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <a href="#">이용약관</a>
+      <a href="#">고객센터</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#">유튜브</a>
+    </footer>
+
+    <!-- 화면에 고정된 검색 버튼 -->
+    <button class="search-fab" type="button" aria-label="검색">
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <circle cx="10.5" cy="10.5" r="6.5" />
+        <path d="M15.5 15.5L21 21" />
+      </svg>
+    </button>
+
+    <script>
+      // KEY POINT: 한 줄을 넘는 문장에만 '더보기' 버튼 활성화
+      (function () {
+        var items = document.querySelectorAll(".key__item");
+        function check(item) {
+          var text = item.querySelector(".key__text");
+          var btn = item.querySelector(".key__more");
+          if (!text || !btn || item.classList.contains("is-open")) return;
+          btn.classList.toggle(
+            "is-visible",
+            text.scrollWidth > text.clientWidth,
+          );
+        }
+        items.forEach(function (item) {
+          var btn = item.querySelector(".key__more");
+          btn.addEventListener("click", function () {
+            var open = item.classList.toggle("is-open");
+            btn.textContent = open ? "접기" : "더보기";
+            btn.setAttribute("aria-expanded", open);
+            if (!open) check(item);
+          });
+          if ("ResizeObserver" in window) {
+            new ResizeObserver(function () {
+              check(item);
+            }).observe(item);
+          }
+          check(item);
+        });
+        window.addEventListener("resize", function () {
+          items.forEach(check);
+        });
+        window.addEventListener("load", function () {
+          items.forEach(check);
+        });
+      })();
+    </script>
+  </body>
+</html>

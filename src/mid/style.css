@@ -1,0 +1,895 @@
+:root {
+  --blue: #1f2bff;
+  --blue-mid: #0b0ba8;
+  --navy: #00003c;
+  --ink: #0b0b2a;
+  --muted: #4a4a6a;
+  --glass-border: rgba(255, 255, 255, 0.35);
+  --radius-lg: 2rem;
+  --radius-md: 1.25rem;
+  --ease-out: cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: #fff;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: clip; /* 가로 스크롤 방지 (sticky 유지) */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+button {
+  font: inherit;
+  color: inherit;
+}
+img {
+  max-width: 100%;
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.container {
+  width: calc(100% - 3rem);
+  margin-inline: auto;
+}
+
+/* ========== 버튼 ========== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn--primary {
+  background: var(--blue);
+  color: #fff;
+}
+.btn--glass {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--glass-border);
+  color: #fff;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.btn--glass:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+/* ========== 내비게이션 (sticky + 글라스) ========== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 1px 0 rgba(11, 11, 168, 0.08);
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 4.5rem;
+}
+.nav__logo {
+  justify-self: start;
+  display: inline-flex;
+}
+.nav__menu {
+  display: flex;
+  gap: 3rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.nav__menu a {
+  padding-block: 0.5rem;
+}
+.nav__menu a.is-active {
+  border-bottom: 2px solid var(--ink);
+}
+.nav__actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.menu-btn {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.player {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  height: max(32rem, calc(100dvh - 7.5rem));
+  margin-top: 0.5rem;
+  padding: 1.5rem 2rem 2rem;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  color: #fff;
+  background:
+    radial-gradient(
+      60% 50% at 20% 0%,
+      rgba(120, 140, 255, 0.55),
+      transparent 70%
+    ),
+    linear-gradient(135deg, #1c2cff 0%, var(--blue-mid) 55%, #00006e 100%);
+}
+
+/* 선수 두 명: 가운데로 모이게 배치, 박스 높이를 꽉 채움 */
+.player__photos {
+  grid-area: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 0;
+  min-width: 0;
+  padding-top: 2.5rem;
+  z-index: 1;
+}
+
+.player-cutout {
+  display: block;
+  flex: 0 1 auto;
+  width: auto;
+  max-width: none;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 0 5px rgba(100, 120, 255, 0.25))
+    drop-shadow(0 0 15px rgba(100, 120, 255, 0.15));
+}
+.player-cutout:first-child {
+  object-position: right bottom;
+  translate: -30% 0;
+}
+.player-cutout:last-child {
+  object-position: left bottom;
+  translate: 30% 0;
+}
+
+.epl__league {
+  grid-area: 1 / 1;
+  justify-self: center;
+  align-self: start;
+  z-index: 3;
+  width: max(5.5rem, 11vw);
+}
+.epl__league img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.matchtxt__content {
+  grid-area: 1 / 1;
+  align-self: end;
+  justify-self: center;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.25rem;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "kicker" "title" "teams" "date" "venue" "cta";
+}
+.matchtxt__head {
+  --ls: 1.2em;
+  grid-area: kicker;
+  font-size: max(0.6875rem, 1vw);
+  letter-spacing: var(--ls);
+  padding-left: var(--ls); /* 글자 간격 때문에 쏠리는 중앙 보정 */
+  margin-bottom: -0.75rem;
+}
+.matchtxt__title {
+  grid-area: title;
+  font-size: max(4rem, min(9vw, 15dvh));
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin-block: 0.25rem 0.75rem;
+}
+.matchtxt__teams {
+  grid-area: teams;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: baseline;
+  justify-self: stretch;
+  column-gap: 1rem;
+  font-size: max(1.125rem, 1.7vw);
+  font-weight: 700;
+}
+.matchtxt__teams > span:first-child {
+  justify-self: end;
+}
+.matchtxt__teams > span:last-child {
+  justify-self: start;
+}
+.matchtxt__vs {
+  justify-self: center;
+  font-weight: 500;
+}
+.matchtxt__date {
+  grid-area: date;
+  font-size: 1rem;
+}
+.matchtxt__venue {
+  grid-area: venue;
+  font-size: 1rem;
+}
+.matchtxt__cta {
+  grid-area: cta;
+  margin-top: 1rem;
+}
+
+/* ========== 라인업 + 키포인트 ========== */
+.info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 0.8fr);
+  grid-template-areas: "home away key";
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.lineup--home {
+  grid-area: home;
+}
+.lineup--away {
+  grid-area: away;
+}
+
+.lineup {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 0.5rem;
+  min-width: 0;
+  min-height: 24rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  color: #fff;
+  background:
+    radial-gradient(
+      60% 50% at 20% 0%,
+      rgba(120, 140, 255, 0.55),
+      transparent 70%
+    ),
+    linear-gradient(135deg, #1c2cff 0%, var(--blue-mid) 55%, #00006e 100%);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 110, 0.25);
+}
+.lineup__head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.lineup__team {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.lineup__pitch {
+  position: relative;
+  min-height: 0;
+  border-radius: 1.5rem;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0) 45%
+    ),
+    rgba(0, 25, 170, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 0 1.5rem rgba(150, 170, 255, 0.28),
+    0 0.5rem 1.25rem rgba(0, 0, 40, 0.35);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.lineup__pitch picture {
+  position: absolute;
+  inset: 0.5rem;
+  z-index: 1;
+  display: block;
+}
+.lineup__pitch img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.key {
+  grid-area: key;
+  display: grid;
+  grid-template-rows: auto repeat(3, 1fr);
+  gap: 0.75rem;
+  min-width: 0;
+}
+.section-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+.key__item {
+  display: grid;
+  align-content: center;
+  gap: 0.125rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 0.5rem 1.5rem rgba(11, 11, 168, 0.16);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.key__num {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--blue);
+}
+.key__item {
+  min-width: 0;
+  align-content: start;
+}
+/* 기본: 한 줄만 표시, 넘치면 … */
+.key__text {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+/* 더보기 버튼: 자리는 항상 확보(visibility) → 박스끼리 글씨 위치 유지 */
+.key__more {
+  justify-self: start;
+  margin-top: 0.125rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+  visibility: hidden;
+}
+.key__more.is-visible,
+.key__item.is-open .key__more {
+  visibility: visible;
+}
+.key__more:hover {
+  text-decoration: underline;
+}
+/* 펼친 상태 */
+.key__item.is-open .key__text {
+  overflow: visible;
+  white-space: normal;
+  word-break: keep-all;
+}
+
+/* ========== 오늘의 경기 ========== */
+.today {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+.today__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--blue);
+}
+.today__desc {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.match {
+  display: grid;
+  align-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 1.25rem;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  color: #fff;
+  background:
+    radial-gradient(
+      60% 50% at 20% 0%,
+      rgba(120, 140, 255, 0.55),
+      transparent 70%
+    ),
+    linear-gradient(135deg, #1c2cff 0%, var(--blue-mid) 55%, #00006e 100%);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 110, 0.25);
+}
+.match__date {
+  font-size: 0.75rem;
+}
+.match__teams {
+  display: grid;
+  justify-items: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.match__vs {
+  font-weight: 500;
+}
+
+/* ========== 푸터 ========== */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  margin-top: auto;
+  padding-block: 4rem 1rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.footer a:hover {
+  color: var(--blue);
+}
+
+/* ========== 고정 검색 버튼 (글라스) ========== */
+.search-fab {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0.5rem 1.5rem rgba(11, 11, 168, 0.28);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  cursor: pointer;
+}
+
+/* =====================================================
+   등장 애니메이션 (페이지 로드 시 한 번, 순서대로)
+   헤더 → 박스 → 로고 → 선수(좌/우) → 텍스트 → 버튼
+   ===================================================== */
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes box-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes player-left {
+  from {
+    opacity: 0;
+    transform: translateX(-12%) scale(0.96);
+    filter: blur(8px) drop-shadow(0 0 5px rgba(100, 120, 255, 0.25))
+      drop-shadow(0 0 15px rgba(100, 120, 255, 0.15));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0) drop-shadow(0 0 5px rgba(100, 120, 255, 0.25))
+      drop-shadow(0 0 15px rgba(100, 120, 255, 0.15));
+  }
+}
+@keyframes player-right {
+  from {
+    opacity: 0;
+    transform: translateX(12%) scale(0.96);
+    filter: blur(8px) drop-shadow(0 0 5px rgba(100, 120, 255, 0.25))
+      drop-shadow(0 0 15px rgba(100, 120, 255, 0.15));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0) drop-shadow(0 0 5px rgba(100, 120, 255, 0.25))
+      drop-shadow(0 0 15px rgba(100, 120, 255, 0.15));
+  }
+}
+@keyframes text-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes title-in {
+  from {
+    opacity: 0;
+    transform: translateY(2rem) scale(0.96);
+    filter: blur(10px);
+    letter-spacing: 0.06em;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    letter-spacing: -0.02em;
+  }
+}
+@keyframes head-in {
+  from {
+    opacity: 0;
+    letter-spacing: 0.2em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: var(--ls);
+  }
+}
+
+.site-header {
+  animation: fade-down 0.6s var(--ease-out) backwards;
+}
+.player {
+  animation: box-in 0.8s var(--ease-out) 0.1s backwards;
+}
+.epl__league {
+  animation: fade-in 0.7s ease 0.5s backwards;
+}
+.player-cutout:first-child {
+  animation: player-left 1s var(--ease-out) 0.55s backwards;
+}
+.player-cutout:last-child {
+  animation: player-right 1s var(--ease-out) 0.75s backwards;
+}
+.matchtxt__head {
+  animation: head-in 0.9s var(--ease-out) 1s backwards;
+}
+.matchtxt__title {
+  animation: title-in 0.9s var(--ease-out) 1.15s backwards;
+}
+.matchtxt__teams {
+  animation: text-rise 0.6s var(--ease-out) 1.4s backwards;
+}
+.matchtxt__date {
+  animation: text-rise 0.6s var(--ease-out) 1.5s backwards;
+}
+.matchtxt__venue {
+  animation: text-rise 0.6s var(--ease-out) 1.6s backwards;
+}
+.matchtxt__cta {
+  animation: text-rise 0.6s var(--ease-out) 1.75s backwards;
+}
+.info {
+  animation: fade-in 0.8s ease 1.9s backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =====================================================
+   태블릿 (~768px)
+   ===================================================== */
+@media (max-width: 768px) {
+  .nav {
+    grid-template-columns: 1fr auto;
+  }
+  .nav__menu {
+    display: none;
+  }
+  .menu-btn {
+    display: grid;
+  }
+
+  .player {
+    height: clamp(34rem, 92vw, 48rem);
+    padding: 1.25rem;
+  }
+  /* 태블릿: 사진을 위쪽 영역(약 58%)에 가두어 텍스트와 안 겹치게 */
+  .player__photos {
+    align-self: start;
+    height: 70%;
+    padding-top: 2.5rem;
+  }
+  .player-cutout:first-child {
+    translate: -8% 0;
+  }
+  .player-cutout:last-child {
+    translate: 8% 0;
+  }
+  .epl__league {
+    justify-self: start;
+    width: clamp(5rem, 15vw, 7.5rem);
+  }
+
+  .matchtxt__content {
+    justify-self: stretch;
+    justify-items: start;
+    text-align: left;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "kicker kicker"
+      "title  title"
+      "teams  cta"
+      "date   cta"
+      "venue  cta";
+  }
+  .matchtxt__head {
+    --ls: 0.5em;
+    padding-left: 0;
+    margin-bottom: -0.5rem;
+    font-size: 0.8125rem;
+  }
+  .matchtxt__title {
+    font-size: clamp(3.5rem, 14vw, 7rem);
+  }
+  .matchtxt__teams {
+    display: block;
+    font-size: clamp(1rem, 2.8vw, 1.25rem);
+  }
+  .matchtxt__vs {
+    margin-inline: 0.5rem;
+  }
+  .matchtxt__cta {
+    align-self: end;
+    justify-self: end;
+    margin-top: 0;
+  }
+
+  .info {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "home away"
+      "key  key";
+  }
+  .lineup {
+    min-height: 0;
+    height: clamp(22rem, 62vw, 30rem);
+  }
+  .key {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+  }
+  .section-label {
+    grid-column: 1 / -1;
+  }
+
+  .today {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .today__intro {
+    margin-bottom: 0.25rem;
+  }
+  .today__title br {
+    display: none;
+  }
+  .match {
+    text-align: left;
+  }
+  .match__teams {
+    display: block;
+    font-size: 1.125rem;
+  }
+  .match__vs {
+    margin-inline: 0.25rem;
+  }
+}
+
+/* =====================================================
+   모바일 (~390px)
+   ===================================================== */
+@media (max-width: 390px) {
+  .container {
+    width: calc(100% - 1.5rem);
+  }
+  .nav {
+    height: 3.5rem;
+  }
+  .btn {
+    padding: 0 1rem;
+  }
+
+  .player {
+    height: clamp(38rem, 160vw, 46rem);
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+  /* 모바일에서는 선수 한 명만 */
+  .player__photos {
+    grid-template-columns: minmax(0, 1fr);
+    align-self: start;
+    height: 72%;
+    padding-top: 2.5rem;
+  }
+  .player-cutout:last-child {
+    display: none;
+  }
+  .player-cutout:first-child {
+    object-position: center bottom;
+    translate: none;
+  }
+  .epl__league {
+    width: 5rem;
+  }
+
+  .matchtxt__content {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "kicker" "title" "teams" "date" "venue" "cta";
+  }
+  .matchtxt__head {
+    --ls: 0.3em;
+    font-size: 0.75rem;
+  }
+  .matchtxt__title {
+    font-size: clamp(3rem, 17vw, 4.5rem);
+    margin-bottom: 0.5rem;
+  }
+  .matchtxt__teams {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-self: start;
+    row-gap: 0;
+    font-size: 1.0625rem;
+  }
+  .matchtxt__teams > span:first-child,
+  .matchtxt__teams > span:last-child,
+  .matchtxt__vs {
+    justify-self: start;
+    margin-inline: 0;
+  }
+  .matchtxt__date {
+    font-size: 0.875rem;
+  }
+  .matchtxt__venue {
+    font-size: 0.8125rem;
+  }
+  .matchtxt__cta {
+    justify-self: stretch;
+    align-self: auto;
+    margin-top: 0.75rem;
+  }
+
+  .info {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "home" "away" "key";
+  }
+  .lineup {
+    height: clamp(22rem, 105vw, 28rem);
+  }
+  .key {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* 오늘의 경기: 가로 정렬 + 넘치는 부분은 좌우 스크롤 */
+  .today {
+    grid-template-columns: repeat(3, minmax(15rem, 78%));
+    gap: 0.75rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0;
+    padding-bottom: 1rem; /* 그림자·스크롤바 공간 */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--blue) transparent;
+  }
+  .today__intro {
+    grid-column: 1 / -1;
+    justify-self: start;
+    position: sticky; /* 스크롤해도 제목은 왼쪽에 고정 */
+    left: 0;
+    margin-bottom: 0;
+  }
+  .match {
+    scroll-snap-align: start;
+    min-height: 9.5rem;
+    text-align: center;
+  }
+  .match__teams {
+    display: grid;
+    font-size: 1.125rem;
+  }
+  .match__vs {
+    margin-inline: 0;
+  }
+
+  .footer {
+    gap: 0.5rem 1.25rem;
+    padding-block: 3rem 1rem;
+  }
+  .search-fab {
+    right: 1rem;
+    bottom: 1rem;
+    width: 3rem;
+    height: 3rem;
+  }
+}
