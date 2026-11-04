@@ -32,7 +32,7 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  overflow-x: clip; /* 가로 스크롤 방지 (sticky 유지) */
+  overflow-x: clip;
 }
 
 a {
@@ -50,8 +50,6 @@ button {
 img {
   max-width: 100%;
   image-rendering: auto;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
 }
 
 :focus-visible {
@@ -99,7 +97,7 @@ img {
   background: rgba(255, 255, 255, 0.26);
 }
 
-/* ========== 내비게이션 (sticky + 글라스) ========== */
+/* ========== 내비게이션바 ========== */
 .site-header {
   position: sticky;
   top: 0;
@@ -170,7 +168,6 @@ img {
     linear-gradient(135deg, #1c2cff 0%, var(--blue-mid) 55%, #00006e 100%);
 }
 
-/* 선수 두 명: 가운데로 모이게 배치, 박스 높이를 꽉 채움 */
 .player__photos {
   grid-area: 1 / 1;
   display: flex;
@@ -238,7 +235,7 @@ img {
   grid-area: kicker;
   font-size: max(0.6875rem, 1vw);
   letter-spacing: var(--ls);
-  padding-left: var(--ls); /* 글자 간격 때문에 쏠리는 중앙 보정 */
+  padding-left: var(--ls);
   margin-bottom: -0.75rem;
 }
 .matchtxt__title {
@@ -282,7 +279,7 @@ img {
   margin-top: 1rem;
 }
 
-/* ========== 라인업 + 키포인트 ========== */
+/* ========== 라인업  ========== */
 .info {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 0.8fr);
@@ -403,7 +400,7 @@ img {
   font-size: 0.875rem;
   font-weight: 600;
 }
-/* 더보기 버튼: 자리는 항상 확보(visibility) → 박스끼리 글씨 위치 유지 */
+
 .key__more {
   justify-self: start;
   margin-top: 0.125rem;
@@ -495,7 +492,7 @@ img {
   color: var(--blue);
 }
 
-/* ========== 고정 검색 버튼 (글라스) ========== */
+/* ========== 고정 검색 버튼 ========== */
 .search-fab {
   position: fixed;
   right: 1.5rem;
@@ -515,8 +512,7 @@ img {
 }
 
 /* =====================================================
-   등장 애니메이션 (페이지 로드 시 한 번, 순서대로)
-   헤더 → 박스 → 로고 → 선수(좌/우) → 텍스트 → 버튼
+   등장 애니메이션
    ===================================================== */
 @keyframes fade-down {
   from {
@@ -673,7 +669,7 @@ img {
     height: clamp(34rem, 92vw, 48rem);
     padding: 1.25rem;
   }
-  /* 태블릿: 사진을 위쪽 영역(약 58%)에 가두어 텍스트와 안 겹치게 */
+
   .player__photos {
     align-self: start;
     height: 70%;
@@ -857,7 +853,7 @@ img {
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: 0;
-    padding-bottom: 1rem; /* 그림자·스크롤바 공간 */
+    padding-bottom: 1rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: var(--blue) transparent;
@@ -865,7 +861,7 @@ img {
   .today__intro {
     grid-column: 1 / -1;
     justify-self: start;
-    position: sticky; /* 스크롤해도 제목은 왼쪽에 고정 */
+    position: sticky;
     left: 0;
     margin-bottom: 0;
   }
